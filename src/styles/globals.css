@@ -1,0 +1,238 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #17191f;
+  --color-graphite: #23262e;
+  --color-hairline: #343740;
+  --color-silver: #bfc0c3;
+  --color-chalk: #f0f0f1;
+  --color-muted: #9ea0a6;
+
+  --font-display: "Anton", "Arial Narrow", Impact, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #17191f;
+    color: #f0f0f1;
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+  }
+
+  section[id] {
+    scroll-margin-top: 96px;
+  }
+
+  ::selection {
+    background: #bfc0c3;
+    color: #17191f;
+  }
+
+  :focus-visible {
+    outline: 2px solid #bfc0c3;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}
+
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+@utility eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+@utility metal {
+  background-image: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #f0f0f1 22%,
+    #bfc0c3 55%,
+    #8e9096 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility outline-text {
+  color: transparent;
+  -webkit-text-stroke: 1.5px #6d707a;
+}
+
+@utility hairline {
+  border-color: #343740;
+}
+
+@utility grain {
+  position: relative;
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@utility mask-fade-b {
+  -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
+}
+
+/* Botão com reflexo metálico */
+.btn-metal {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease,
+    background-color 0.4s ease,
+    color 0.4s ease;
+}
+
+.btn-metal::after {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: -80%;
+  width: 45%;
+  height: 220%;
+  transform: rotate(18deg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.55),
+    transparent
+  );
+  opacity: 0;
+  transition:
+    left 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.4s ease;
+}
+
+.btn-metal:hover::after {
+  left: 135%;
+  opacity: 1;
+}
+
+.btn-metal:hover {
+  transform: translateY(-2px);
+}
+
+.btn-metal:active {
+  transform: translateY(0);
+}
+
+/* Linha de sublinhado dos links de navegação */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, #f0f0f1, #8e9096);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after,
+.nav-link[data-active="true"]::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Réguas e divisores editoriais */
+.rule {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(191, 192, 195, 0.55),
+    rgba(52, 55, 64, 0.15)
+  );
+}
+
+/* Acordeão: transição suave de altura */
+.accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.accordion-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.accordion-panel > div {
+  overflow: hidden;
+}
+
+/* Textura de brilho nos cards */
+.card-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-sheen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 0%),
+    rgba(191, 192, 195, 0.12),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.card-sheen:hover::before {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

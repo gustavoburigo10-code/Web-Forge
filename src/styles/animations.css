@@ -1,0 +1,85 @@
+/* Anizações decorativas — todas baseadas em transform e opacity */
+
+@keyframes wf-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0) rotate(-0.35deg);
+  }
+}
+
+@keyframes wf-float-slow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -26px, 0);
+  }
+}
+
+@keyframes wf-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.35);
+  }
+}
+
+@keyframes wf-sweep {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(220%);
+  }
+}
+
+@keyframes wf-scroll-cue {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes wf-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.anim-float {
+  animation: wf-float 7s ease-in-out infinite;
+}
+
+.anim-float-slow {
+  animation: wf-float-slow 12s ease-in-out infinite;
+}
+
+.anim-pulse-dot {
+  animation: wf-pulse 2.6s ease-in-out infinite;
+}
+
+.anim-scroll-cue {
+  animation: wf-scroll-cue 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+.anim-marquee {
+  animation: wf-marquee 38s linear infinite;
+}
